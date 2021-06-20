@@ -28,7 +28,9 @@ export const getStaticProps = async() => {
     }
   }
 
-  const fetchArticle = await fetch('https://nkomatsublog.microcms.io/api/v1/article', key)
+  const reqUrl = process.env.REQUEST_URL + 'article';
+
+  const fetchArticle = await fetch(reqUrl, key)
     .catch((e) => { console.error(e) })
     .then((res) => {
       if(!res) {
