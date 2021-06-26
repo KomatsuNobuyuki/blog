@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .header-title {
-  @apply text-lg font-bold text-dark hover:text-primary delay-75;
+  @apply text-lg font-bold text-dark hover:text-primary delay-75 transition-colors;
 }
