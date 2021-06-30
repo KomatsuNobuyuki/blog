@@ -21,7 +21,9 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      margin: ['first'],
+    },
   },
   corePlugins: {
     container: false

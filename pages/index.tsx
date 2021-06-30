@@ -17,7 +17,7 @@ export default function Home({ articles }: HomeProps) {
           const day = date.getDay();
           const formatedDate = `${year}.${month}.${day}`;
           return (
-          <li key={article.id} className="border-light border-b-2 mt-4">
+          <li key={article.id} className="border-light border-b-2 mt-4 first:mt-0">
             <Link href={`/article/${article.id}`}>
               <a className="pb-8 block hover:opacity-70">
                 <h2 className="text-2xl">{article.title}</h2>
