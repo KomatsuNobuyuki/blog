@@ -23,7 +23,7 @@ export default function Home({ articles }: HomeProps) {
                 <h2 className="text-2xl">{article.title}</h2>
                 <div className="mt-4">
                   <p>{formatedDate}</p>
-                  <p className="mt-4 line-clamp2">{article.contents}</p>
+                  <p className="mt-4 line-clamp-2">{article.contents}</p>
                 </div>
               </a>
             </Link>
