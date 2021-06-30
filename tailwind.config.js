@@ -2,7 +2,7 @@ const colors = {
   primary: '#FF6464',
   secondary: '#00A8CC',
   dark: '#21243D',
-  light: '#8695A4',
+  light: '#E0E0E0',
 }
 
 module.exports = {
@@ -10,16 +10,13 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      primary: colors.primary,
-      secondary: colors.secondary,
-      dark: colors.dark,
-      light: colors.light,
+      ...colors
     },
     textColor: {
-      primary: colors.primary,
-      secondary: colors.secondary,
-      dark: colors.dark,
-      light: colors.light,
+      ...colors
+    },
+    borderColor: {
+      ...colors
     },
     extend: {},
   },

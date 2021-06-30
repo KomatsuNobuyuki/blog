@@ -9,13 +9,27 @@ export default function Home({ articles }: HomeProps) {
   return (
     <div>
       <ul>
-        {articles.map(article => (
-          <li key={article.id}>
+        {articles.map(article => {
+          const { createdAt } = article;
+          const date = new Date(createdAt);
+          const year = date.getFullYear();
+          const month = date.getMonth() + 1;
+          const day = date.getDay();
+          const formatedDate = `${year}.${month}.${day}`;
+          return (
+          <li key={article.id} className="border-light border-b-2 mt-4">
             <Link href={`/article/${article.id}`}>
-              <a>{article.title}</a>
+              <a className="pb-8 block hover:opacity-70">
+                <h2 className="text-2xl">{article.title}</h2>
+                <div className="mt-4">
+                  <p>{formatedDate}</p>
+                  <p className="mt-4 line-clamp2">{article.contents}</p>
+                </div>
+              </a>
             </Link>
           </li>
-        ))}
+          )
+        })}
       </ul>
     </div>
   )
