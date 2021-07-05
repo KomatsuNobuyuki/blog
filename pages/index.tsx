@@ -14,7 +14,7 @@ export default function Home({ articles }: HomeProps) {
           const date = new Date(createdAt);
           const year = date.getFullYear();
           const month = date.getMonth() + 1;
-          const day = date.getDay();
+          const day = date.getDate();
           const formatedDate = `${year}.${month}.${day}`;
           return (
           <li key={article.id} className="border-light border-b-2 mt-4 first:mt-0">
