@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Article } from '@/types/Article';
+import { getFormatedDate } from '@/utils/getFormetedDate';
 
 type HomeProps = {
   articles: Article[]
@@ -12,10 +13,7 @@ export default function Home({ articles }: HomeProps) {
         {articles.map(article => {
           const { createdAt } = article;
           const date = new Date(createdAt);
-          const year = date.getFullYear();
-          const month = date.getMonth() + 1;
-          const day = date.getDate();
-          const formatedDate = `${year}.${month}.${day}`;
+          const formatedDate = getFormatedDate(date);
           return (
           <li key={article.id} className="border-light border-b-2 mt-4 first:mt-0">
             <Link href={`/article/${article.id}`}>
