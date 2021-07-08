@@ -15,7 +15,7 @@ export default function Home({ articles }: HomeProps) {
           return (
           <li key={article.id} className="border-light border-b-2 mt-4 first:mt-0">
             <Link href={`/article/${article.id}`}>
-              <a className="pb-8 block hover:opacity-70">
+              <a className="pb-8 block hover:opacity-70 delay-75 transition-opacity">
                 <h2 className="text-2xl">{article.title}</h2>
                 <div className="mt-4">
                   <p>{article.createdAt}</p>
