@@ -3,6 +3,8 @@ import { Article } from '@/types/Article';
 import { MicroCMSResponse } from '@/types/MicroCMSResponse';
 import { getFormatedDate } from '@/utils/getFormetedDate';
 
+import styles from '@/styles/ArticleList.module.css';
+
 type HomeProps = {
   articles: Article[]
 }
@@ -13,13 +15,13 @@ export default function Home({ articles }: HomeProps) {
       <ul>
         {articles.map(article => {
           return (
-          <li key={article.id} className="border-light border-b-2 mt-4 first:mt-0">
+          <li key={article.id} className={ styles.articleListItem }>
             <Link href={`/article/${article.id}`}>
-              <a className="pb-8 block hover:opacity-70 delay-75 transition-opacity">
-                <h2 className="text-2xl">{article.title}</h2>
-                <div className="mt-4">
+              <a className={ styles.articleListLink }>
+                <h2 className={ styles.articleListTitle }>{article.title}</h2>
+                <div className={ styles.wrapArticleListContents }>
                   <p>{article.createdAt}</p>
-                  <p className="mt-4 line-clamp-2">{article.contents}</p>
+                  <p className={ styles.articleListContent }>{article.contents}</p>
                 </div>
               </a>
             </Link>

@@ -1,0 +1,19 @@
+.articleListItem {
+  @apply border-light border-b-2 mt-4 first:mt-0;
+}
+
+.articleListLink {
+  @apply pb-8 block hover:opacity-70 delay-75 transition-opacity;
+}
+
+.articleListTitle {
+  @apply text-2xl;
+}
+
+.wrapArticleListContents {
+  @apply mt-4;
+}
+
+.articleListContent {
+  @apply mt-4 line-clamp-2;
+}
