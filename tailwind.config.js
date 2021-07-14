@@ -1,8 +1,9 @@
 const colors = {
-  primary: '#FF6464',
-  secondary: '#00A8CC',
-  dark: '#21243D',
-  light: '#E0E0E0',
+  primary: '#ffffdf',
+  black: '#000',
+  alto: '#ddd',
+  glay: '#333',
+  subglay: '#666',
 }
 
 module.exports = {

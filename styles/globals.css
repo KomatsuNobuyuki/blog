@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply text-alto bg-black
+}
+
 .header-title {
-  @apply text-lg font-bold text-dark hover:text-primary delay-75 transition-colors;
+  @apply text-lg font-bold hover:text-primary delay-75 transition-colors;
 }
