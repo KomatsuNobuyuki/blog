@@ -5,7 +5,7 @@ export const Header = () => {
     <header className="py-10">
       <div className="container mx-auto text-center">
         <Link href="/">
-          <a className="header-title">ブログのタイトルxxx</a>
+          <a className="header-title">smallpine8 blog</a>
         </Link>
       </div>
     </header>
