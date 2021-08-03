@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Article } from '@/types/Article';
 import { MicroCMSResponse } from '@/types/MicroCMSResponse';
-import { getFormatedDate } from '@/utils/getFormetedDate';
+import { getFormatedDate } from '@/utils/getFormatedDate';
 
 import styles from '@/styles/ArticleList.module.css';
 

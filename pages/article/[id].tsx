@@ -2,6 +2,9 @@ import { GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { Article } from '@/types/Article';
 import { MicroCMSResponse } from '@/types/MicroCMSResponse';
+import { getFormatedDate } from '@/utils/getFormatedDate';
+
+import styles from '@/styles/ArticleDetail.module.css';
 
 type ArticleIdProps = {
   article: Article
@@ -14,9 +17,9 @@ interface PageParams extends ParsedUrlQuery {
 export default function ArticleId({ article }: ArticleIdProps) {
   return (
     <main>
-      <h1>{article.title}</h1>
-      <p>{article.publishedAt}</p>
-      <div dangerouslySetInnerHTML={{ __html: article.contents }} />
+      <h1 className={ styles.articleDetailTitle }>{article.title}</h1>
+      <p className={ styles.articleDetailDate }>{article.createdAt}</p>
+      <div className={ styles.articleDetailBody } dangerouslySetInnerHTML={{ __html: article.contents }} />
     </main>
   );
 }
@@ -72,9 +75,13 @@ export const getStaticProps = async (context: GetStaticPropsContext<PageParams>)
         throw new Error(res.statusText);
       }
 
-      return res.json();
+      return res.json() as Promise<Article>;
     });
 
+  const { createdAt } = fetchArticle;
+  const date = new Date(createdAt);
+  const formatedDate = getFormatedDate(date);
+  fetchArticle.createdAt = formatedDate;
   return {
     props: {
       article: fetchArticle

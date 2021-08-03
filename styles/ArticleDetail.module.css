@@ -1,0 +1,47 @@
+.articleDetailTitle {
+  @apply text-3xl
+}
+
+.articleDetailDate {
+  @apply mt-4
+}
+
+.articleDetailBody {
+  @apply mt-8
+}
+
+.articleDetailBody > *:first-child {
+  @apply mt-0
+}
+
+.articleDetailBody > * {
+  @apply mt-6
+}
+
+.articleDetailBody > h2 + * {
+  @apply mt-10
+}
+
+.articleDetailBody > h3 + * {
+  @apply mt-6
+}
+
+.articleDetailBody > * + h3 {
+  @apply mt-8
+}
+
+.articleDetailBody > h2 {
+  @apply inline-block border-b-4 border-primary text-2xl font-bold pb-2
+}
+
+.articleDetailBody > h3 {
+  @apply border-l-4 border-primary text-xl font-bold pl-4
+}
+
+.articleDetailBody strong {
+  @apply font-bold text-primary
+}
+
+.articleDetailBody code {
+  @apply bg-alto text-violetred px-1
+}

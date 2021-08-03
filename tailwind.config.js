@@ -4,6 +4,7 @@ const colors = {
   alto: '#ddd',
   glay: '#333',
   subglay: '#666',
+  violetred: '#ff357f'
 }
 
 module.exports = {
