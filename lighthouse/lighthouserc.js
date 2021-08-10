@@ -1,16 +1,16 @@
-const configureLHCI = {
-  ci: {
-    collect: {
-      url: ['http://localhost:3000/'],
-      startServerCommand: 'npm start'
-    },
-    upload: {
-      target: 'temporary-public-storage',
+module.exports = (async function() {
+  const configureLHCI = {
+    ci: {
+      collect: {
+        url: ['http://localhost:3000/'],
+        startServerCommand: 'npm start'
+      },
+      upload: {
+        target: 'temporary-public-storage',
+      }
     }
   }
-}
 
-(async() => {
   const key = {
     headers: {
       'X-API-KEY': process.env.API_KEY,
@@ -30,6 +30,6 @@ const configureLHCI = {
     const collectUrl = `http://localhost:3000/article/${id}`;
     configureLHCI.ci.collect.url.push(collectUrl);
   });
-});
 
-module.exports = configureLHCI;
+  return configureLHCI;
+})();
