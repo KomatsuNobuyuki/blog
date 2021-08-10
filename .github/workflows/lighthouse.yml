@@ -12,8 +12,8 @@ jobs:
       name: Production
     env:
       LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-      API_KEY: ${{ env.API_KEY }}
-      REQUEST_URL: ${{ env.REQUEST_URL }}
+      API_KEY: ${{ secrets.API_KEY }}
+      REQUEST_URL: ${{ secrets.REQUEST_URL }}
     strategy:
       matrix:
         node-version: [14.x]
