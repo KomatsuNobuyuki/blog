@@ -1,4 +1,4 @@
-module.exports = (async function() {
+module.exports = async function() {
   const configureLHCI = {
     ci: {
       collect: {
@@ -30,6 +30,5 @@ module.exports = (async function() {
     const collectUrl = `http://localhost:3000/article/${id}`;
     configureLHCI.ci.collect.url.push(collectUrl);
   });
-  console.log(`configure: ${configureLHCI.ci.collect.url}`);
   return configureLHCI;
-})();
+};
