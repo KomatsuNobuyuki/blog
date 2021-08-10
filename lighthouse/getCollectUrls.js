@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 async function main() {
-  const urls = ['http://localhost:3000/'];
+  const urls = ['--collect.url=http://localhost:3000/'];
 
   const key = {
     headers: {
