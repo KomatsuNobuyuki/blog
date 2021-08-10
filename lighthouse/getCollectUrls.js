@@ -18,7 +18,7 @@ async function main() {
 
   fetchArticle.contents.forEach((article) => {
     const { id } = article;
-    const collectUrl = `http://localhost:3000/article/${id}`;
+    const collectUrl = `--collect.url=http://localhost:3000/article/${id}`;
     urls.push(collectUrl);
   });
 
