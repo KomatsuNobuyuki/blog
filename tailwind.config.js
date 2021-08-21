@@ -4,7 +4,7 @@ const colors = {
   alto: '#ddd',
   glay: '#333',
   subglay: '#666',
-  violetred: '#ff357f'
+  nightshadz: '#af1f54'
 }
 
 module.exports = {
