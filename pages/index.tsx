@@ -1,7 +1,9 @@
 import Link from 'next/link';
+import Head from 'next/head';
 import { Article } from '@/types/Article';
 import { MicroCMSResponse } from '@/types/MicroCMSResponse';
 import { getFormatedDate } from '@/utils/getFormatedDate';
+import { replaceHtmltagToPlainStr } from '@/utils/replaceHtmltagToPlainStr';
 
 import styles from '@/styles/ArticleList.module.css';
 
@@ -12,6 +14,10 @@ type HomeProps = {
 export default function Home({ articles }: HomeProps) {
   return (
     <div>
+      <Head>
+        <title>TOP | smallpine8 blog</title>
+        <meta name="description" content="smallpine8 blog"></meta>
+      </Head>
       <ul>
         {articles.map(article => {
           return (
@@ -63,8 +69,8 @@ export const getStaticProps = async() => {
 
       article.createdAt = formatedDate;
       const regex = /<("[^"]*"|'[^']*'|[^'">])[^<>]*>/g;
-      const removedHtmlTagsContents = article.contents.replace(regex, '');
-      article.contents = removedHtmlTagsContents;
+      const plainStr = replaceHtmltagToPlainStr(article.contents);
+      article.contents = plainStr;
 
       return article;
     });

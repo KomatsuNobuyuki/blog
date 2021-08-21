@@ -1,12 +1,15 @@
 import { GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import { Article } from '@/types/Article';
 import { MicroCMSResponse } from '@/types/MicroCMSResponse';
 import { getFormatedDate } from '@/utils/getFormatedDate';
+import { replaceHtmltagToPlainStr } from '@/utils/replaceHtmltagToPlainStr';
 
 import styles from '@/styles/ArticleDetail.module.css';
 
 type ArticleIdProps = {
+  metaDesc: string
   article: Article
 }
 
@@ -14,9 +17,13 @@ interface PageParams extends ParsedUrlQuery {
   id: string
 }
 
-export default function ArticleId({ article }: ArticleIdProps) {
+export default function ArticleId({ metaDesc, article }: ArticleIdProps) {
   return (
     <main>
+      <Head>
+        <title>{ article.title } | smallpine8 blog</title>
+        <meta name="description" content={ metaDesc }></meta>
+      </Head>
       <h1 className={ styles.articleDetailTitle }>{article.title}</h1>
       <p className={ styles.articleDetailDate }>{article.createdAt}</p>
       <div className={ styles.articleDetailBody } dangerouslySetInnerHTML={{ __html: article.contents }} />
@@ -32,7 +39,7 @@ export const getStaticPaths = async() => {
   }
   
   const reqUrl = process.env.REQUEST_URL + 'article';
-  const fetchArticle = await fetch(reqUrl, key)
+  const article = await fetch(reqUrl, key)
     .catch(e => {
       console.error(e)
     })
@@ -48,7 +55,7 @@ export const getStaticPaths = async() => {
       return res.json() as Promise<MicroCMSResponse<Article>>;
     });
 
-  const paths = fetchArticle.contents.map((article) => `/article/${article.id}`);
+  const paths = article.contents.map((article) => `/article/${article.id}`);
 
   return { paths, fallback: false };
 }
@@ -62,7 +69,7 @@ export const getStaticProps = async (context: GetStaticPropsContext<PageParams>)
   }
 
   const reqUrl = process.env.REQUEST_URL + 'article/' + id;
-  const fetchArticle = await fetch(reqUrl, key)
+  const article = await fetch(reqUrl, key)
     .catch(e => {
       console.error(e)
     })
@@ -78,13 +85,17 @@ export const getStaticProps = async (context: GetStaticPropsContext<PageParams>)
       return res.json() as Promise<Article>;
     });
 
-  const { createdAt } = fetchArticle;
+  const { createdAt } = article;
   const date = new Date(createdAt);
   const formatedDate = getFormatedDate(date);
-  fetchArticle.createdAt = formatedDate;
+  article.createdAt = formatedDate;
+
+  const plainStr = replaceHtmltagToPlainStr(article.contents);
+  const metaDesc = plainStr.substr(0, 117) + '...';
   return {
     props: {
-      article: fetchArticle
+      metaDesc,
+      article
     }
   }
 }
