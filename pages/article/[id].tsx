@@ -1,6 +1,8 @@
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
+import cheerio from 'cheerio';
+import { getHighlighter } from 'shiki';
 import { Article } from '@/types/Article';
 import { MicroCMSResponse } from '@/types/MicroCMSResponse';
 import { getFormatedDate } from '@/utils/getFormatedDate';
@@ -9,7 +11,8 @@ import { replaceHtmltagToPlainStr } from '@/utils/replaceHtmltagToPlainStr';
 import styles from '@/styles/ArticleDetail.module.css';
 
 type ArticleIdProps = {
-  metaDesc: string
+  metaDesc: string,
+  htmlElm: string,
   article: Article
 }
 
@@ -17,7 +20,7 @@ interface PageParams extends ParsedUrlQuery {
   id: string
 }
 
-export default function ArticleId({ metaDesc, article }: ArticleIdProps) {
+export default function ArticleId({ metaDesc, htmlElm, article }: ArticleIdProps) {
   return (
     <main>
       <Head>
@@ -26,7 +29,7 @@ export default function ArticleId({ metaDesc, article }: ArticleIdProps) {
       </Head>
       <h1 className={ styles.articleDetailTitle }>{article.title}</h1>
       <p className={ styles.articleDetailDate }>{article.createdAt}</p>
-      <div className={ styles.articleDetailBody } dangerouslySetInnerHTML={{ __html: article.contents }} />
+      <div className={ styles.articleDetailBody } dangerouslySetInnerHTML={{ __html: htmlElm }} />
     </main>
   );
 }
@@ -92,9 +95,26 @@ export const getStaticProps = async (context: GetStaticPropsContext<PageParams>)
 
   const plainStr = replaceHtmltagToPlainStr(article.contents);
   const metaDesc = plainStr.substr(0, 117) + '...';
+  const highlighter = await getHighlighter({ theme: 'nord' });
+
+  const $ = cheerio.load(article.contents);
+  $('pre').each((_, elm) => {
+    let lang;
+    let text = $(elm).text();
+    // CMSのコンテンツ側のコードブロック行頭に「!! 言語名」という文字列を入れそいつを抜き取ってハイライトの言語名を指定
+    const regExp = /\!\! \w*/;
+    if(text.match(regExp)) {
+      lang = text.match(regExp)![0].substr(3);
+      text = text.replace(regExp, '');
+    }
+    const hlElem = lang ? highlighter.codeToHtml(text, lang) : highlighter.codeToHtml(text);
+    $(elm).html(hlElem);
+  });
+  const htmlElm = $.html();
   return {
     props: {
       metaDesc,
+      htmlElm,
       article
     }
   }
