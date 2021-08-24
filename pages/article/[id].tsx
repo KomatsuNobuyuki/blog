@@ -105,7 +105,7 @@ export const getStaticProps = async (context: GetStaticPropsContext<PageParams>)
     const regExp = /\!\! \w*/;
     if(text.match(regExp)) {
       lang = text.match(regExp)![0].substr(3);
-      text = text.replace(regExp, '');
+      text = text.replace(regExp, '').replace(/\s/, '');
     }
     const hlElem = lang ? highlighter.codeToHtml(text, lang) : highlighter.codeToHtml(text);
     $(elm).html(hlElem);
