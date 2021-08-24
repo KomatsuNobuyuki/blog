@@ -42,7 +42,7 @@
   @apply font-bold text-primary
 }
 
-.articleDetailBody > code {
+.articleDetailBody > p code {
   @apply bg-alto text-nightshadz px-1
 }
 
